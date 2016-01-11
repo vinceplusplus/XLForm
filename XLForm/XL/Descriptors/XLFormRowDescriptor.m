@@ -261,6 +261,20 @@
     }
 }
 
+#pragma mark - Setters
+
+- (void)setValue:(id)value
+{
+    if (self.valueTransformer && [self.valueTransformer isSubclassOfClass:[NSValueTransformer class]])
+    {
+        _value = [[self.valueTransformer new] transformedValue:value];
+    }
+    else
+    {
+        _value = value;
+    }
+}
+
 #pragma mark - Disable Predicate functions
 
 -(BOOL)isDisabled
