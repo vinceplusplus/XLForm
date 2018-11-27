@@ -127,7 +127,7 @@
             } else {
               Class cellClassActual = NSClassFromString(cellClassString);
               if (cellClassActual == nil) {
-                // On XCode10.1 for iOS11 the module prefix is not provided so provide it here if it's missing
+                NSAssert([formController moduleName] != nil, @"self.moduleName is not set on XLFormViewController subclass.");
                 cellClassActual = NSClassFromString([NSString stringWithFormat: @"%@.%@", [formController moduleName], cellClassString]);
               }
               bundle = [NSBundle bundleForClass: cellClassActual];
