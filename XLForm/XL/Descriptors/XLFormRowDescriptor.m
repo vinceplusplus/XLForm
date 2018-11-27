@@ -125,8 +125,13 @@
                 NSString *bundlePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:folderName];
                 bundle = [NSBundle bundleWithPath:bundlePath];
             } else {
-                bundle = [NSBundle bundleForClass:NSClassFromString(cellClass)];
-                cellResource = cellClassString;
+              Class cellClassActual = NSClassFromString(cellClassString);
+              if (cellClassActual == nil) {
+                NSAssert([formController moduleName] != nil, @"self.moduleName is not set on XLFormViewController subclass.");
+                cellClassActual = NSClassFromString([NSString stringWithFormat: @"%@.%@", [formController moduleName], cellClassString]);
+              }
+              bundle = [NSBundle bundleForClass: cellClassActual];
+              cellResource = cellClassString;
             }
             NSParameterAssert(bundle != nil);
             NSParameterAssert(cellResource != nil);
