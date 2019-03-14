@@ -126,7 +126,7 @@
                 bundle = [NSBundle bundleWithPath:bundlePath];
             } else {
                 bundle = [NSBundle bundleForClass:NSClassFromString(cellClass)];
-                cellResource = cellClassString;
+                cellResource = [[cellClassString componentsSeparatedByString:@"."] lastObject] ?: cellClassString;
             }
             NSParameterAssert(bundle != nil);
             NSParameterAssert(cellResource != nil);
